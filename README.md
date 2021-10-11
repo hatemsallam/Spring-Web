@@ -14,6 +14,8 @@
 
 - /Capitalize followed by /Whatever to capitalize .
 
-- /Albums will show you random 3 generated albums .
+- /album will show you random 3 generated albums .
 
-- / Is a simple UI to the application .
+/albums will display a form that will take some data to fill and add a new album to the database.
+
+- /allAlbums will display all of the albums in the page .
