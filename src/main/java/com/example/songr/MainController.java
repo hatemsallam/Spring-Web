@@ -1,16 +1,24 @@
 package com.example.songr;
 
+import com.example.songr.SongDTO.SongDTO;
+import interfaces.AlbumRepository;
+import interfaces.SongsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 @Controller
 public class MainController {
 
     @Autowired
     private AlbumRepository albumRepository;
+    @Autowired
+    private SongsRepository songsRepository;
+
 
     @GetMapping("/hello")
     String getGreeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model userName) {
@@ -69,4 +77,31 @@ public class MainController {
 
     }
 
+    @GetMapping("/songs")
+    public String viewAllSongs(Model model) {
+        model.addAttribute("songs", songsRepository.findAll());
+        return "songs";
+
+    }
+
+    @GetMapping("/songs/addSong")
+    public String addSong() {
+        return "songForm";
+    }
+
+    @GetMapping("/songs/album/{album}")
+    public String getSongsByAlbum(@PathVariable String album, Model model) {
+        List<Songs> songs = songsRepository.findSongsByAlbumTitle(album).orElseThrow();
+        model.addAttribute("songs", songs);
+        return "songs";
+    }
+
+    @PostMapping("/songs")
+    public RedirectView createNewSong(@ModelAttribute SongDTO songDTO) {
+        Album album = albumRepository.findAlbumByTitle(songDTO.getAlbum()).orElseThrow();
+        Songs newSong = new Songs(songDTO.getTitle(), songDTO.getLength(), songDTO.getTrackNumber(), album);
+        songsRepository.save(newSong);
+        return new RedirectView("songs");
+
+    }
 }
