@@ -1,6 +1,7 @@
 package com.example.songr;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -11,6 +12,8 @@ public class Album {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @OneToMany(mappedBy = "album")
+    private List<Songs> addedSong;
 
     private String title;
     private String artist;
