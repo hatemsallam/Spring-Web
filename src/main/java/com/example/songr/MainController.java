@@ -91,8 +91,8 @@ public class MainController {
 
     @GetMapping("/songs/album/{album}")
     public String getSongsByAlbum(@PathVariable String album, Model model) {
-        Album newAlbum = albumRepository.findAlbumByTitle(album).orElseThrow();
-        List<Songs> songs = songsRepository.findSongsByAlbum(newAlbum).orElseThrow();
+//        Album newAlbum = albumRepository.findAlbumByTitle(album).orElseThrow();
+        List<Songs> songs = songsRepository.findAllByAlbum_Title(album).orElseThrow();
         model.addAttribute("songs", songs);
         return "songs";
     }
