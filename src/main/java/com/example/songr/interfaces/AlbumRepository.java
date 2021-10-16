@@ -1,4 +1,4 @@
-package interfaces;
+package com.example.songr.interfaces;
 
 import com.example.songr.Album;
 import org.springframework.data.jpa.repository.JpaRepository;

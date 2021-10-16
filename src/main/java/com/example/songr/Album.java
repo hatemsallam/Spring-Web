@@ -36,6 +36,18 @@ public class Album {
         this.imageUrl = imageUrl;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Songs> getAddedSong() {
+        return addedSong;
+    }
+
+    public void setAddedSong(List<Songs> addedSong) {
+        this.addedSong = addedSong;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

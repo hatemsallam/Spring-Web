@@ -50,6 +50,14 @@ int trackNumber;
         this.trackNumber = trackNumber;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
     public String getTitle() {
         return title;
     }
