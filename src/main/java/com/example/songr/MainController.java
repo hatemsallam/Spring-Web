@@ -1,8 +1,8 @@
 package com.example.songr;
 
 import com.example.songr.SongDTO.SongDTO;
-import interfaces.AlbumRepository;
-import interfaces.SongsRepository;
+import com.example.songr.interfaces.AlbumRepository;
+import com.example.songr.interfaces.SongsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +60,7 @@ public class MainController {
     @PostMapping("/albums")
     public RedirectView createNewAlbum(@ModelAttribute Album album) {
         albumRepository.save(album);
-        return new RedirectView("addAlbum");
+        return new RedirectView("/albums");
     }
 
     @GetMapping("/albums")
@@ -91,7 +91,8 @@ public class MainController {
 
     @GetMapping("/songs/album/{album}")
     public String getSongsByAlbum(@PathVariable String album, Model model) {
-        List<Songs> songs = songsRepository.findSongsByAlbumTitle(album).orElseThrow();
+        Album newAlbum = albumRepository.findAlbumByTitle(album).orElseThrow();
+        List<Songs> songs = songsRepository.findSongsByAlbum(newAlbum).orElseThrow();
         model.addAttribute("songs", songs);
         return "songs";
     }
